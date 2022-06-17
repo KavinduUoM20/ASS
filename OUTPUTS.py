@@ -4,6 +4,7 @@ class waterTap():
 
     def __init__(self, id):
         self.tapID = id
+        self.moistVal = INPUTS.MoistureSensor().getMoistureLevel()
         self.status = self.setStatus()
 
     def getTapID(self):
@@ -12,17 +13,14 @@ class waterTap():
     def getTapStatus(self):
         return self.status
 
-    def getStatus(self):
-        if self.status=="OPEN":
-            return True
-        else:
-            return False
+    def getMoistureValue(self):
+        return self.moistVal
 
     def setStatus(self):
-        if INPUTS.MoistureSensor().getMoistureLevel() >  41:
-            self.status = "CLOSE"
+        if self.moistVal >  41:
+            return "CLOSE"
         else:
-            self.status = "OPEN"
+            return "OPEN"
 
     def reset(self):
         INPUTS.MoistureSensor.resetMoistureLevel()
@@ -81,12 +79,6 @@ class fireAlarm():
     def getSmokeStatus(self):
         return "ON" if self.smokeStatus==1 else "OFF"
 
-    def getStatus(self):
-        if self.alarmStatus=="ON":
-            return True
-        else:
-            return False
-
     def getTempStatus(self):
         return self.tempStatus
 
@@ -103,7 +95,7 @@ class shutters():
 
     def __init__(self,id):
         self.shutterID = id
-        self.shutTime =INPUTS.Timer().getTime()
+        self.shutTime = INPUTS.Timer().getTime()
         self.shutterStatus = self.setStatus()
 
     def getShutterID(self):
@@ -115,18 +107,13 @@ class shutters():
     def getShutterStatus(self):
         return self.shutterStatus
 
-    def getStatus(self):
-        if self.shutterStatus == "OPEN":
-            return True
-        else:
-            return False
-
     def setStatus(self):
         thours = self.shutTime[:2]
         if int(thours) in [18,19,20,21,22,23,0,1,2,3,4,5,6]:
-            self.shutterStatus = "CLOSE"
+            return "CLOSE"
         else:
-            self.shutterStatus = "OPEN"
+            return "OPEN"
+
 
     def reset(self):
         self.shutterStatus=INPUTS.Timer().setTime()
@@ -145,24 +132,15 @@ class TempController():
         return self.temp
 
     def getControllerStatus(self):
-        return "AC Switched ON" if self.contStatus==1 else "Heater Switched ON" if self.contStatus==0 else "No Controller is ON"
-
+        return self.contStatus
 
     def setStatus(self):
         if self.temp<100 and self.temp>30:
-            return 1
+            return "AC Switched ON"
         if self.temp<20 and self.temp>0:
-            return 0
+            return "Heater Switched ON"
         else:
-            return 2
-
-    def getStatus(self):
-        if self.contStatus==1:
-            return True
-        elif self.contStatus==2:
-            return True
-        else:
-            return False
+            return "No Controller is ON"
 
     def reset(self):
         self.temp=INPUTS.TempSensor().resetTemp()

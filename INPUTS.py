@@ -7,7 +7,7 @@ class Timer():
         self.timenow = self.setTime()
 
     def getTime(self):
-        return self.timenow
+        return str(self.timenow)
 
     def setTime(self):
         now = datetime.now()
@@ -48,13 +48,10 @@ class SmokeSensor():
 class MotionSensor():
 
     def __init__(self):
-        self.status = self.setMotion()
+        self.status = random.choice(range(0,2))
 
     def getMotion(self):
         return self.status
-
-    def setMotion(self):
-        self.status = random.choice(range(0,2))
 
     def resetMotion(self):
         self.status=0

@@ -32,34 +32,22 @@ class MyHomeTestOutputs(unittest.TestCase):
 
     #Status Methods
     def test_WaterTapStatus(self):
-        values = ["OPEN","CLOSE"]
-        WT1 = OUTPUTS.shutters("WT1")
-        self.assertEqual(WT1.getStatus(), any(values))
+        self.assertTrue(OUTPUTS.waterTap("WT1").getTapStatus() in ["OPEN","CLOSE"])
 
     def test_MotionSensor(self):
-        values = [True,False]
-        MS1 = INPUTS.MotionSensor()
-        self.assertEqual(MS1.getMotion(), any(values))
+        self.assertTrue(INPUTS.MotionSensor().status in [1,0])
 
     def test_BulbStatus(self):
-        values = ["OFF","ON"]
-        LB1 = OUTPUTS.lightBulb("LB1")
-        self.assertEqual(LB1.getStatus(),any(values))
+        self.assertTrue(OUTPUTS.lightBulb("BL2").getBulbStatus() in ["ON", "OFF"])
 
     def test_FireAlarmStatus(self):
-        values = ["OFF","ON"]
-        FA1 = OUTPUTS.fireAlarm("FA1")
-        self.assertEqual(FA1.getStatus(),any(values))
+        self.assertTrue(OUTPUTS.fireAlarm("FA2").getAlarmStatus() in ["OFF","ON"])
 
     def test_ShutterStatus(self):
-        values = ["CLOSE", "OPEN"]
-        SH1 = OUTPUTS.shutters("SH1")
-        self.assertEqual(SH1.getStatus(), any(values))
+        self.assertTrue(OUTPUTS.shutters("SH1").getShutterStatus() in ["CLOSE", "OPEN"])
 
     def test_TempContollerStatus(self):
-        values = ["CLOSE", "OPEN"]
-        TC1 = OUTPUTS.TempController("TC1")
-        self.assertEqual(TC1.getStatus(), any(values))
+        self.assertTrue(OUTPUTS.TempController("TC1").getControllerStatus() in ["AC Switched ON","Heater Switched ON","No Controller is ON"])
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ def main():
     print("\nSimulating My Home Automation System...\n")
 
     switcher= {
-        ToolKit[0]: print(ToolKit[0].getTapID()+" is ["+ ToolKit[0].getTapStatus() +"] as Moisture Sensor Value is "),
+        ToolKit[0]: print(ToolKit[0].getTapID()+" is ["+ ToolKit[0].getTapStatus() +"] as Moisture Sensor Value is "+ str(ToolKit[0].getMoistureValue())),
         ToolKit[1]: print(ToolKit[1].getShutterID()+" is ["+ToolKit[1].getShutterStatus()+"] as Timer Value is "+ str(ToolKit[1].getShutTime())),
         ToolKit[2]: print(ToolKit[2].getBulbID()+" is ["+ToolKit[2].getBulbStatus()+"] as Timer Value and Motion Sensor are "+ str(ToolKit[2].time)+ " and "+ToolKit[2].getMotionStatus()),
         ToolKit[3]: print(ToolKit[3].getAlarmID() + " is [" + ToolKit[3].getAlarmStatus() + "] as Temperature and Smoke Sensor are " + str(ToolKit[3].getTempStatus()) + " and " + ToolKit[3].getSmokeStatus()),
